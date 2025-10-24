@@ -33,7 +33,7 @@ function InfiniteGrid() {
                     <button
                         onClick={() => fetchNextPage()}
                         disabled={isFetchingNextPage}
-                        className="px-4 py-2 bg-blue-600 text-white rounded"
+                        className="px-4 py-2 bg-blue-600 text-white rounded cursor-pointer"
                     >
                         {isFetchingNextPage ? 'Loading...' : 'Load More'}
                     </button>

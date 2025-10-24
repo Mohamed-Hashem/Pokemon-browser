@@ -14,7 +14,9 @@ function PokemonCardInner({ name }: Props) {
         queryFn: () => getPokemonByName(name)
     })
 
-    const sprite = data?.sprites?.front_default
+    if (!data) return <Spinner />
+
+    const sprite = data.sprites?.front_default
 
     return (
         <Link to={`/pokemon/${name}`} className="block p-4 bg-white rounded-lg shadow hover:shadow-lg transition">

@@ -27,6 +27,8 @@ function DetailInner({ name }: { name: string }) {
         queryFn: () => getPokemonByName(name)
     })
 
+    if (!data) return <Spinner />
+
     return (
         <div className="mt-4 max-w-xl bg-white p-6 rounded shadow">
             <div className="flex flex-col md:flex-row items-center gap-6">
