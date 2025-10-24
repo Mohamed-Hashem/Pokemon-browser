@@ -1,14 +1,19 @@
-import { Suspense } from 'react'
-import { useParams, Link } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
-import { getPokemonByName } from '../../api/pokemon'
-import { DetailSkeleton } from '../../components/SkeletonLoader'
-import type { PokemonType } from '../../types'
+import { Suspense } from "react";
+import { useParams, Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getPokemonByName } from "../../api/pokemon";
+import { DetailSkeleton } from "../../components/SkeletonLoader";
+import type { PokemonType } from "../../types";
 
 export default function PokemonDetail() {
-    const { name } = useParams<{ name: string }>()
+    const { name } = useParams<{ name: string }>();
 
-    if (!name) return <div className="p-6" role="alert">Missing Pokémon name</div>
+    if (!name)
+        return (
+            <div className="p-6" role="alert">
+                Missing Pokémon name
+            </div>
+        );
 
     return (
         <div className="p-6">
@@ -24,16 +29,16 @@ export default function PokemonDetail() {
                 <DetailInner name={name} />
             </Suspense>
         </div>
-    )
+    );
 }
 
 function DetailInner({ name }: { name: string }) {
     const { data } = useQuery({
-        queryKey: ['pokemon-detail-page', name],
-        queryFn: () => getPokemonByName(name)
-    })
+        queryKey: ["pokemon-detail-page", name],
+        queryFn: () => getPokemonByName(name),
+    });
 
-    if (!data) return <DetailSkeleton />
+    if (!data) return <DetailSkeleton />;
 
     return (
         <article className="mt-4 max-w-xl bg-white p-6 rounded shadow">
@@ -47,14 +52,20 @@ function DetailInner({ name }: { name: string }) {
                             loading="eager"
                         />
                     ) : (
-                        <div className="text-sm text-gray-500" role="img" aria-label="No image available">
+                        <div
+                            className="text-sm text-gray-500"
+                            role="img"
+                            aria-label="No image available"
+                        >
                             No image
                         </div>
                     )}
                 </div>
 
                 <div>
-                    <h2 className="text-2xl font-bold capitalize" id="pokemon-name">{data.name}</h2>
+                    <h2 className="text-2xl font-bold capitalize" id="pokemon-name">
+                        {data.name}
+                    </h2>
                     <dl className="mt-2 space-y-1">
                         <div>
                             <dt className="inline font-medium">ID: </dt>
@@ -87,5 +98,5 @@ function DetailInner({ name }: { name: string }) {
                 </div>
             </div>
         </article>
-    )
+    );
 }

@@ -12,7 +12,7 @@ export function PokemonCardSkeleton() {
                 <div className="h-5 bg-gray-200 rounded w-24"></div>
             </div>
         </div>
-    )
+    );
 }
 
 export function GridSkeleton({ count = 12 }: PokemonCardSkeletonProps) {
@@ -22,7 +22,7 @@ export function GridSkeleton({ count = 12 }: PokemonCardSkeletonProps) {
                 <PokemonCardSkeleton key={i} />
             ))}
         </div>
-    )
+    );
 }
 
 export function DetailSkeleton() {
@@ -49,5 +49,5 @@ export function DetailSkeleton() {
                 </div>
             </div>
         </div>
-    )
+    );
 }

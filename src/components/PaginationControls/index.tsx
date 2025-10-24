@@ -1,46 +1,46 @@
 interface Props {
-    page: number
-    setPage: (page: number) => void
-    totalPages: number
+    page: number;
+    setPage: (page: number) => void;
+    totalPages: number;
 }
 
 export default function PaginationControls({ page, setPage, totalPages }: Props) {
     const getPageNumbers = () => {
-        const pages: (number | string)[] = []
-        const maxButtons = 5
+        const pages: (number | string)[] = [];
+        const maxButtons = 5;
 
-        let startPage = Math.max(1, page - 2)
-        const endPage = Math.min(totalPages, startPage + maxButtons - 1)
+        let startPage = Math.max(1, page - 2);
+        const endPage = Math.min(totalPages, startPage + maxButtons - 1);
 
         if (endPage - startPage < maxButtons - 1) {
-            startPage = Math.max(1, endPage - maxButtons + 1)
+            startPage = Math.max(1, endPage - maxButtons + 1);
         }
 
         // Add first page and ellipsis if needed
         if (startPage > 1) {
-            pages.push(1)
+            pages.push(1);
             if (startPage > 2) {
-                pages.push('...')
+                pages.push("...");
             }
         }
 
         // Add the visible page numbers
         for (let i = startPage; i <= endPage; i++) {
-            pages.push(i)
+            pages.push(i);
         }
 
         // Add ellipsis and last page if needed
         if (endPage < totalPages) {
             if (endPage < totalPages - 1) {
-                pages.push('...')
+                pages.push("...");
             }
-            pages.push(totalPages)
+            pages.push(totalPages);
         }
 
-        return pages
-    }
+        return pages;
+    };
 
-    const pageNumbers = getPageNumbers()
+    const pageNumbers = getPageNumbers();
 
     return (
         <nav
@@ -59,7 +59,7 @@ export default function PaginationControls({ page, setPage, totalPages }: Props)
             </button>
 
             {pageNumbers.map((pageNum, index) => {
-                if (pageNum === '...') {
+                if (pageNum === "...") {
                     return (
                         <span
                             key={`ellipsis-${index}`}
@@ -68,25 +68,26 @@ export default function PaginationControls({ page, setPage, totalPages }: Props)
                         >
                             ...
                         </span>
-                    )
+                    );
                 }
 
-                const isActive = pageNum === page
+                const isActive = pageNum === page;
 
                 return (
                     <button
                         key={pageNum}
                         onClick={() => setPage(pageNum as number)}
-                        className={`px-3 py-2 text-sm rounded transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 cursor-pointer ${isActive
-                            ? 'bg-blue-600 text-white font-semibold'
-                            : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
-                            }`}
+                        className={`px-3 py-2 text-sm rounded transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 cursor-pointer ${
+                            isActive
+                                ? "bg-blue-600 text-white font-semibold"
+                                : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50"
+                        }`}
                         aria-label={`Go to page ${pageNum}`}
-                        aria-current={isActive ? 'page' : undefined}
+                        aria-current={isActive ? "page" : undefined}
                     >
                         {pageNum}
                     </button>
-                )
+                );
             })}
 
             <button
@@ -99,5 +100,5 @@ export default function PaginationControls({ page, setPage, totalPages }: Props)
                 Next →
             </button>
         </nav>
-    )
+    );
 }

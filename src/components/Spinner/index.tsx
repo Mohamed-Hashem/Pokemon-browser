@@ -1,6 +1,10 @@
 export default function Spinner() {
     return (
-        <div className="flex items-center justify-center min-h-screen p-6" role="status" aria-live="polite">
+        <div
+            className="flex items-center justify-center min-h-screen p-6"
+            role="status"
+            aria-live="polite"
+        >
             <div className="flex flex-col items-center gap-3">
                 <svg
                     className="w-12 h-12 text-blue-600 animate-spin"
@@ -26,5 +30,5 @@ export default function Spinner() {
                 <span className="sr-only">Loading application</span>
             </div>
         </div>
-    )
+    );
 }

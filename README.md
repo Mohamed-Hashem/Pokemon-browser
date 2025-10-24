@@ -4,8 +4,8 @@ This template provides a minimal setup to get React working in Vite with HMR and
 
 Currently, two official plugins are available:
 
--   [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
--   [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
 ## React Compiler
 
@@ -21,25 +21,25 @@ A modern, responsive web application for browsing Pokémon data with two viewing
 
 ## 🚀 Features
 
--   **Dual Viewing Modes**
-    -   Pagination View: Browse Pokémon with traditional page navigation
-    -   Load More View: Infinite scroll with "Load More" button
--   **Detailed Pokémon Information**: Click any Pokémon to view detailed stats
--   **Responsive Design**: Works seamlessly on desktop, tablet, and mobile
--   **Error Handling**: Graceful error boundaries and retry mechanisms
--   **Performance Optimized**: Suspense boundaries and efficient data fetching
--   **Type Safety**: Full TypeScript implementation
+- **Dual Viewing Modes**
+    - Pagination View: Browse Pokémon with traditional page navigation
+    - Load More View: Infinite scroll with "Load More" button
+- **Detailed Pokémon Information**: Click any Pokémon to view detailed stats
+- **Responsive Design**: Works seamlessly on desktop, tablet, and mobile
+- **Error Handling**: Graceful error boundaries and retry mechanisms
+- **Performance Optimized**: Suspense boundaries and efficient data fetching
+- **Type Safety**: Full TypeScript implementation
 
 ## 🛠️ Tech Stack
 
--   **React 18** - UI framework with Suspense support
--   **TypeScript** - Type safety and better developer experience
--   **Vite** - Fast build tool and development server
--   **TanStack Query (React Query)** - Powerful data synchronization
--   **React Router v6** - Client-side routing
--   **Tailwind CSS** - Utility-first CSS framework
--   **Axios** - HTTP client for API requests
--   **PokéAPI** - RESTful Pokémon API
+- **React 18** - UI framework with Suspense support
+- **TypeScript** - Type safety and better developer experience
+- **Vite** - Fast build tool and development server
+- **TanStack Query (React Query)** - Powerful data synchronization
+- **React Router v6** - Client-side routing
+- **Tailwind CSS** - Utility-first CSS framework
+- **Axios** - HTTP client for API requests
+- **PokéAPI** - RESTful Pokémon API
 
 ## 📦 Installation
 
@@ -91,11 +91,36 @@ src/
 
 ## 🔧 Available Scripts
 
--   `npm run dev` - Start development server
--   `npm run build` - Build for production
--   `npm run preview` - Preview production build
--   `npm run lint` - Run ESLint
--   `npm run type-check` - Type check without emitting files
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+- `npm run lint:fix` - Fix ESLint errors automatically
+- `npm run format` - Format code with Prettier
+- `npm run format:check` - Check code formatting without modifying files
+
+### Code Quality Tools
+
+**ESLint Configuration:**
+
+- Enforces semicolons at the end of statements
+- TypeScript strict rules
+- React Hooks rules
+- Consistent spacing and style
+
+**Prettier Configuration:**
+
+- Semicolons: Always (`"semi": true`)
+- Quote Style: Double quotes
+- Print Width: 100 characters
+- Tab Width: 4 spaces
+- Trailing Commas: ES5 compatible
+
+**VS Code Integration:**
+
+- Auto-format on save
+- Auto-fix ESLint errors on save
+- Prettier as default formatter
 
 ### Additional Scripts (Can be added)
 
@@ -114,24 +139,24 @@ src/
 
 ### Pagination View
 
--   Display 12 Pokémon per page
--   Navigate using Previous/Next buttons
--   Current page indicator
--   Disabled state for navigation boundaries
+- Display 12 Pokémon per page
+- Navigate using Previous/Next buttons
+- Current page indicator
+- Disabled state for navigation boundaries
 
 ### Load More View
 
--   Initial load of 12 Pokémon
--   "Load More" button to fetch additional Pokémon
--   Automatic detection of end of list
--   Loading state during fetch
+- Initial load of 12 Pokémon
+- "Load More" button to fetch additional Pokémon
+- Automatic detection of end of list
+- Loading state during fetch
 
 ### Pokémon Details
 
--   Display sprite image
--   Show basic stats (ID, height, weight)
--   List Pokémon types
--   Navigate back to list view
+- Display sprite image
+- Show basic stats (ID, height, weight)
+- List Pokémon types
+- Navigate back to list view
 
 ## 🐛 Error Fixes Applied
 
@@ -140,8 +165,8 @@ src/
 **Problem**: Components were using incorrect relative imports from the `Pages` folder.
 **Solution**: Updated all imports to use proper relative paths:
 
--   Pages components: `../../api/pokemon` and `../../components/*`
--   Components: Correct relative paths based on folder structure
+- Pages components: `../../api/pokemon` and `../../components/*`
+- Components: Correct relative paths based on folder structure
 
 **Why it occurred**: The `Pages` folder is at the same level as `components` and `api`, so components inside `Pages` need to go up two levels (`../../`) to access sibling folders.
 
@@ -193,19 +218,19 @@ const sprite = data?.sprites?.front_default;
 
 ## 🔐 Error Handling
 
--   **Error Boundaries**: Catch and display React component errors
--   **Query Retries**: Automatic retry on failed API requests (configured to 1 retry)
--   **Loading States**: Suspense boundaries for smooth loading experience
--   **Graceful Degradation**: Show placeholder when images are unavailable
+- **Error Boundaries**: Catch and display React component errors
+- **Query Retries**: Automatic retry on failed API requests (configured to 1 retry)
+- **Loading States**: Suspense boundaries for smooth loading experience
+- **Graceful Degradation**: Show placeholder when images are unavailable
 
 ## 🎨 Styling
 
 The application uses Tailwind CSS for styling with:
 
--   Responsive grid layouts
--   Hover effects and transitions
--   Consistent spacing and typography
--   Shadow and rounded corners for cards
+- Responsive grid layouts
+- Hover effects and transitions
+- Consistent spacing and typography
+- Shadow and rounded corners for cards
 
 ## ⚙️ Constants Configuration
 
@@ -249,18 +274,18 @@ QUERY_CONFIG: {
 
 **Benefits of Centralized Constants:**
 
--   Single source of truth for configuration values
--   Easy to update across the entire application
--   Prevents magic numbers in code
--   Improves maintainability and testability
--   TypeScript type safety for all constants
+- Single source of truth for configuration values
+- Easy to update across the entire application
+- Prevents magic numbers in code
+- Improves maintainability and testability
+- TypeScript type safety for all constants
 
 ## 📱 Responsive Design
 
--   **Mobile**: 2 columns grid
--   **Small Tablet**: 3 columns grid
--   **Medium Tablet**: 4 columns grid
--   **Desktop**: 6 columns grid
+- **Mobile**: 2 columns grid
+- **Small Tablet**: 3 columns grid
+- **Medium Tablet**: 4 columns grid
+- **Desktop**: 6 columns grid
 
 ### Responsive Breakpoints
 
@@ -279,52 +304,52 @@ grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6
 
 ### ✅ Performance
 
--   [x] Lazy loading routes
--   [x] Component memoization
--   [x] Image lazy loading
--   [x] Optimized cache strategy
--   [x] Request timeout protection
--   [x] Skeleton loaders instead of spinners
+- [x] Lazy loading routes
+- [x] Component memoization
+- [x] Image lazy loading
+- [x] Optimized cache strategy
+- [x] Request timeout protection
+- [x] Skeleton loaders instead of spinners
 
 ### ✅ Accessibility
 
--   [x] Semantic HTML elements
--   [x] ARIA labels and roles
--   [x] Keyboard navigation
--   [x] Focus indicators
--   [x] Screen reader support
--   [x] Skip links
--   [x] Alt text for images
+- [x] Semantic HTML elements
+- [x] ARIA labels and roles
+- [x] Keyboard navigation
+- [x] Focus indicators
+- [x] Screen reader support
+- [x] Skip links
+- [x] Alt text for images
 
 ### ✅ Security
 
--   [x] Input validation
--   [x] Request timeouts
--   [x] Error handling
--   [x] Safe error messages
--   [x] HTTPS only
--   [x] Sanitized inputs
+- [x] Input validation
+- [x] Request timeouts
+- [x] Error handling
+- [x] Safe error messages
+- [x] HTTPS only
+- [x] Sanitized inputs
 
 ### ✅ Code Quality
 
--   [x] TypeScript for type safety
--   [x] Component modularity
--   [x] Shared components (DRY)
--   [x] Consistent code style
--   [x] Error boundaries
--   [x] Loading states
+- [x] TypeScript for type safety
+- [x] Component modularity
+- [x] Shared components (DRY)
+- [x] Consistent code style
+- [x] Error boundaries
+- [x] Loading states
 
 ## 🚀 Performance Optimizations
 
--   **Code Splitting**: React.lazy and Suspense for route-based splitting
--   **Data Caching**: React Query caches API responses automatically
--   **Suspense Boundaries**: Prevent waterfall loading patterns
--   **Optimistic Updates**: Immediate UI feedback
--   **Retry Strategy**: Limited retries (2) to avoid excessive API calls
--   **Component Memoization**: React.memo to prevent unnecessary re-renders
--   **Image Lazy Loading**: Native lazy loading for images
--   **Stale-While-Revalidate**: 5-minute stale time, 10-minute cache time
--   **Request Timeout**: 10-second timeout to prevent hanging requests
+- **Code Splitting**: React.lazy and Suspense for route-based splitting
+- **Data Caching**: React Query caches API responses automatically
+- **Suspense Boundaries**: Prevent waterfall loading patterns
+- **Optimistic Updates**: Immediate UI feedback
+- **Retry Strategy**: Limited retries (2) to avoid excessive API calls
+- **Component Memoization**: React.memo to prevent unnecessary re-renders
+- **Image Lazy Loading**: Native lazy loading for images
+- **Stale-While-Revalidate**: 5-minute stale time, 10-minute cache time
+- **Request Timeout**: 10-second timeout to prevent hanging requests
 
 ### Performance Configuration
 
@@ -343,12 +368,12 @@ const PokemonCardInner = memo(({ name }) => { ... })
 
 ## 🔐 Security Improvements
 
--   **Input Validation**: Sanitize and validate all user inputs
--   **Request Timeout**: Prevent hanging requests with 10s timeout
--   **Error Sanitization**: Safe error messages without exposing internals
--   **XSS Prevention**: Proper escaping and sanitization
--   **Rate Limiting**: Client-side request throttling
--   **HTTPS Only**: All API calls use secure HTTPS protocol
+- **Input Validation**: Sanitize and validate all user inputs
+- **Request Timeout**: Prevent hanging requests with 10s timeout
+- **Error Sanitization**: Safe error messages without exposing internals
+- **XSS Prevention**: Proper escaping and sanitization
+- **Rate Limiting**: Client-side request throttling
+- **HTTPS Only**: All API calls use secure HTTPS protocol
 
 ### Security Measures
 
@@ -371,15 +396,15 @@ api.interceptors.response.use(
 
 ## ♿ Accessibility Features
 
--   **Semantic HTML**: Proper use of `<nav>`, `<main>`, `<article>`, `<header>` elements
--   **ARIA Labels**: Comprehensive aria-label attributes
--   **Keyboard Navigation**: Full keyboard support with visible focus states
--   **Skip Links**: "Skip to main content" for screen reader users
--   **Screen Reader Support**: aria-live regions for dynamic content
--   **Focus Management**: Proper focus indicators and outlines
--   **Alt Text**: Descriptive alt text for all images
--   **Color Contrast**: WCAG AA compliant color combinations
--   **Semantic Lists**: Using `<dl>`, `<dt>`, `<dd>` for data
+- **Semantic HTML**: Proper use of `<nav>`, `<main>`, `<article>`, `<header>` elements
+- **ARIA Labels**: Comprehensive aria-label attributes
+- **Keyboard Navigation**: Full keyboard support with visible focus states
+- **Skip Links**: "Skip to main content" for screen reader users
+- **Screen Reader Support**: aria-live regions for dynamic content
+- **Focus Management**: Proper focus indicators and outlines
+- **Alt Text**: Descriptive alt text for all images
+- **Color Contrast**: WCAG AA compliant color combinations
+- **Semantic Lists**: Using `<dl>`, `<dt>`, `<dd>` for data
 
 ### Accessibility Implementation
 
@@ -422,20 +447,20 @@ export const queryClient = new QueryClient({
 
 ### Query Configuration Benefits
 
--   **Reduced Network Calls**: 5-minute stale time prevents unnecessary fetches
--   **Better UX**: Data stays cached for 10 minutes
--   **Auto-Retry**: Automatic retry on transient failures
--   **Reconnect Handling**: Auto-refetch on network reconnection
+- **Reduced Network Calls**: 5-minute stale time prevents unnecessary fetches
+- **Better UX**: Data stays cached for 10 minutes
+- **Auto-Retry**: Automatic retry on transient failures
+- **Reconnect Handling**: Auto-refetch on network reconnection
 
 ## 🌐 API Integration
 
 The application uses the [PokéAPI](https://pokeapi.co/) which provides:
 
--   List of Pokémon with pagination
--   Detailed information for each Pokémon
--   Sprites and images
--   Type information
--   Stats and characteristics
+- List of Pokémon with pagination
+- Detailed information for each Pokémon
+- Sprites and images
+- Type information
+- Stats and characteristics
 
 ### API Security & Error Handling
 
@@ -480,34 +505,34 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 🙏 Acknowledgments
 
--   [PokéAPI](https://pokeapi.co/) for providing the free Pokémon data
--   [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS framework
--   [TanStack Query](https://tanstack.com/query) for the excellent data fetching library
--   [Vite](https://vitejs.dev/) for the blazing fast build tool
+- [PokéAPI](https://pokeapi.co/) for providing the free Pokémon data
+- [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS framework
+- [TanStack Query](https://tanstack.com/query) for the excellent data fetching library
+- [Vite](https://vitejs.dev/) for the blazing fast build tool
 
 ## 📊 Performance Metrics
 
 ### Lighthouse Scores (Target)
 
--   **Performance**: 95+
--   **Accessibility**: 100
--   **Best Practices**: 95+
--   **SEO**: 100
+- **Performance**: 95+
+- **Accessibility**: 100
+- **Best Practices**: 95+
+- **SEO**: 100
 
 ### Key Metrics
 
--   **First Contentful Paint (FCP)**: < 1.5s
--   **Largest Contentful Paint (LCP)**: < 2.5s
--   **Time to Interactive (TTI)**: < 3.5s
--   **Cumulative Layout Shift (CLS)**: < 0.1
+- **First Contentful Paint (FCP)**: < 1.5s
+- **Largest Contentful Paint (LCP)**: < 2.5s
+- **Time to Interactive (TTI)**: < 3.5s
+- **Cumulative Layout Shift (CLS)**: < 0.1
 
 ## 🔍 Browser Support
 
--   Chrome (latest)
--   Firefox (latest)
--   Safari (latest)
--   Edge (latest)
--   Mobile browsers (iOS Safari, Chrome Mobile)
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+- Mobile browsers (iOS Safari, Chrome Mobile)
 
 ## 📝 Development Guidelines
 
@@ -522,32 +547,32 @@ ComponentName/
 
 ### Naming Conventions
 
--   **Components**: PascalCase (e.g., `PokemonCard`)
--   **Files**: PascalCase for components, camelCase for utilities
--   **Functions**: camelCase (e.g., `getPokemonList`)
--   **Types/Interfaces**: PascalCase (e.g., `PokemonDetail`)
+- **Components**: PascalCase (e.g., `PokemonCard`)
+- **Files**: PascalCase for components, camelCase for utilities
+- **Functions**: camelCase (e.g., `getPokemonList`)
+- **Types/Interfaces**: PascalCase (e.g., `PokemonDetail`)
 
 ### Code Style
 
--   Use TypeScript for all new code
--   Follow ESLint rules
--   Add ARIA labels for accessibility
--   Memoize expensive components
--   Use semantic HTML elements
--   Add proper error handling
+- Use TypeScript for all new code
+- Follow ESLint rules
+- Add ARIA labels for accessibility
+- Memoize expensive components
+- Use semantic HTML elements
+- Add proper error handling
 
 ## 🚀 Future Enhancements
 
--   [ ] Add unit tests with Vitest
--   [ ] Implement E2E tests with Playwright
--   [ ] Add search functionality
--   [ ] Implement favorites/bookmarks
--   [ ] Add filters by type
--   [ ] Dark mode support
--   [ ] PWA capabilities (offline support)
--   [ ] Animation improvements
--   [ ] Performance monitoring dashboard
--   [ ] i18n (internationalization) support
+- [ ] Add unit tests with Vitest
+- [ ] Implement E2E tests with Playwright
+- [ ] Add search functionality
+- [ ] Implement favorites/bookmarks
+- [ ] Add filters by type
+- [ ] Dark mode support
+- [ ] PWA capabilities (offline support)
+- [ ] Animation improvements
+- [ ] Performance monitoring dashboard
+- [ ] i18n (internationalization) support
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 

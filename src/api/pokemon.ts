@@ -1,11 +1,5 @@
 import axios from "axios";
-import {
-    API_BASE_URL,
-    API_TIMEOUT,
-    PAGE_SIZE,
-    MIN_LIMIT,
-    MAX_LIMIT,
-} from "../constants";
+import { API_BASE_URL, API_TIMEOUT, PAGE_SIZE, MIN_LIMIT, MAX_LIMIT } from "../constants";
 
 const api = axios.create({
     baseURL: API_BASE_URL,

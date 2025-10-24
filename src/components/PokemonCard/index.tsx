@@ -1,24 +1,24 @@
-import { Suspense, memo } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { getPokemonByName } from '../../api/pokemon'
-import { Link } from 'react-router-dom'
-import { PokemonCardSkeleton } from '../SkeletonLoader'
-import { CACHE_TIME } from '../../constants'
+import { Suspense, memo } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getPokemonByName } from "../../api/pokemon";
+import { Link } from "react-router-dom";
+import { PokemonCardSkeleton } from "../SkeletonLoader";
+import { CACHE_TIME } from "../../constants";
 
 interface Props {
-    name: string
+    name: string;
 }
 
 const PokemonCardInner = memo(({ name }: Props) => {
     const { data } = useQuery({
-        queryKey: ['pokemon-detail', name],
+        queryKey: ["pokemon-detail", name],
         queryFn: () => getPokemonByName(name),
         staleTime: CACHE_TIME.POKEMON_DETAIL_STALE_TIME, // Pokemon data rarely changes - 30 min cache
-    })
+    });
 
-    if (!data) return <PokemonCardSkeleton />
+    if (!data) return <PokemonCardSkeleton />;
 
-    const sprite = data.sprites?.front_default
+    const sprite = data.sprites?.front_default;
 
     return (
         <Link
@@ -37,22 +37,26 @@ const PokemonCardInner = memo(({ name }: Props) => {
                         height="80"
                     />
                 ) : (
-                    <div className="text-sm text-gray-500" role="img" aria-label="No image available">
+                    <div
+                        className="text-sm text-gray-500"
+                        role="img"
+                        aria-label="No image available"
+                    >
                         No image
                     </div>
                 )}
             </div>
             <h3 className="mt-3 text-center capitalize font-medium">{name}</h3>
         </Link>
-    )
-})
+    );
+});
 
-PokemonCardInner.displayName = 'PokemonCardInner'
+PokemonCardInner.displayName = "PokemonCardInner";
 
 export default memo(function PokemonCard({ name }: Props) {
     return (
         <Suspense fallback={<PokemonCardSkeleton />}>
             <PokemonCardInner name={name} />
         </Suspense>
-    )
-})
+    );
+});
