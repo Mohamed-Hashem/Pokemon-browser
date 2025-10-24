@@ -1,29 +1,29 @@
-import React, { Suspense } from 'react'
+import { Suspense } from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { getPokemonList } from '../api/pokemon'
-import PokemonCard from '../components/PokemonCard'
-import Spinner from '../components/Spinner'
+import { getPokemonList } from '../../api/pokemon'
+import PokemonCard from '../../components/PokemonCard'
+import Spinner from '../../components/Spinner'
+import type { PokemonListResult } from '../../types'
 
 const PAGE_SIZE = 12
 
 function InfiniteGrid() {
-    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
-        ['pokemon-infinite'],
-        ({ pageParam = 0 }) => getPokemonList(PAGE_SIZE, pageParam),
-        {
-            getNextPageParam: (lastPage, pages) => {
-                if (lastPage.next) return pages.length * PAGE_SIZE
-                return undefined
-            },
-        }
-    )
+    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
+        queryKey: ['pokemon-infinite'],
+        queryFn: ({ pageParam = 0 }) => getPokemonList(PAGE_SIZE, pageParam),
+        getNextPageParam: (lastPage, pages) => {
+            if (lastPage.next) return pages.length * PAGE_SIZE
+            return undefined
+        },
+        initialPageParam: 0
+    })
 
-    const all = data.pages.flatMap((p) => p.results)
+    const all = data?.pages.flatMap((p) => p.results) || []
 
     return (
         <div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                {all.map((p: any) => (
+                {all.map((p: PokemonListResult) => (
                     <PokemonCard key={p.name} name={p.name} />
                 ))}
             </div>

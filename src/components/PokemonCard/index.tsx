@@ -1,23 +1,25 @@
-import React, { Suspense } from 'react'
+import { Suspense } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { getPokemonByName } from '../api/pokemon'
+import { getPokemonByName } from '../../api/pokemon'
 import { Link } from 'react-router-dom'
-import Spinner from './Spinner'
+import Spinner from '../Spinner'
 
 interface Props {
     name: string
 }
 
 function PokemonCardInner({ name }: Props) {
-    const { data } = useQuery(['pokemon-detail', name], () => getPokemonByName(name))
+    const { data } = useQuery({
+        queryKey: ['pokemon-detail', name],
+        queryFn: () => getPokemonByName(name)
+    })
 
-    const sprite = data.sprites?.front_default
+    const sprite = data?.sprites?.front_default
 
     return (
         <Link to={`/pokemon/${name}`} className="block p-4 bg-white rounded-lg shadow hover:shadow-lg transition">
             <div className="flex items-center justify-center h-28">
                 {sprite ? (
-                    // eslint-disable-next-line @next/next/no-img-element
                     <img src={sprite} alt={name} className="w-20 h-20 object-contain" />
                 ) : (
                     <div className="text-sm text-gray-500">No image</div>

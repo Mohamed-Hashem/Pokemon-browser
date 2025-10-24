@@ -1,8 +1,9 @@
-import React, { Suspense } from 'react'
+import { Suspense } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
-import { getPokemonByName } from '../api/pokemon'
-import Spinner from '../components/Spinner'
+import { getPokemonByName } from '../../api/pokemon'
+import Spinner from '../../components/Spinner'
+import type { PokemonType } from '../../types'
 
 export default function PokemonDetail() {
     const { name } = useParams<{ name: string }>()
@@ -21,14 +22,16 @@ export default function PokemonDetail() {
 }
 
 function DetailInner({ name }: { name: string }) {
-    const { data } = useQuery(['pokemon-detail-page', name], () => getPokemonByName(name))
+    const { data } = useQuery({
+        queryKey: ['pokemon-detail-page', name],
+        queryFn: () => getPokemonByName(name)
+    })
 
     return (
         <div className="mt-4 max-w-xl bg-white p-6 rounded shadow">
             <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="w-48 h-48 flex items-center justify-center bg-gray-100 rounded">
                     {data.sprites?.front_default ? (
-                        // eslint-disable-next-line @next/next/no-img-element
                         <img src={data.sprites.front_default} alt={data.name} />
                     ) : (
                         <div className="text-sm text-gray-500">No image</div>
@@ -44,7 +47,7 @@ function DetailInner({ name }: { name: string }) {
                     <div className="mt-3">
                         <h4 className="font-semibold">Types</h4>
                         <div className="flex gap-2 mt-2">
-                            {data.types.map((t: any) => (
+                            {data.types.map((t: PokemonType) => (
                                 <span key={t.slot} className="px-2 py-1 bg-gray-100 rounded text-sm capitalize">{t.type.name}</span>
                             ))}
                         </div>

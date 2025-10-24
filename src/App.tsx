@@ -1,9 +1,9 @@
-import React, { Suspense } from 'react'
+import { Suspense } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 
-import PokemonListPagination from './pages/PokemonListPagination'
-import PokemonListLoadMore from './pages/PokemonListLoadMore'
-import PokemonDetail from './pages/PokemonDetail'
+import PokemonListPagination from './Pages/PokemonListPagination'
+import PokemonListLoadMore from './Pages/PokemonListLoadMore'
+import PokemonDetail from './Pages/PokemonDetail'
 import Spinner from './components/Spinner'
 
 export default function App() {

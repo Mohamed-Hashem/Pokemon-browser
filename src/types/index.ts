@@ -10,6 +10,14 @@ export interface PokemonListResponse {
     results: PokemonListResult[];
 }
 
+export interface PokemonType {
+    slot: number;
+    type: {
+        name: string;
+        url: string;
+    };
+}
+
 export interface PokemonDetail {
     id: number;
     name: string;
@@ -17,7 +25,7 @@ export interface PokemonDetail {
     weight: number;
     sprites: {
         front_default: string | null;
-        other?: any;
+        other?: unknown;
     };
-    types: { slot: number; type: { name: string; url: string } }[];
+    types: PokemonType[];
 }
