@@ -2,8 +2,8 @@ import { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import { GridSkeleton } from "./components/SkeletonLoader";
 
-const Home = lazy(() => import("./pages/Home/index"));
-const PokemonDetail = lazy(() => import("./pages/PokemonDetail/index"));
+const Home = lazy(() => import("./pages/Home/index.tsx"));
+const PokemonDetail = lazy(() => import("./pages/PokemonDetail/index.tsx"));
 
 export default function App() {
     return (
