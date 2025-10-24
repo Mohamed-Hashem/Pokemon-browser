@@ -26,15 +26,13 @@ const PokemonCardInner = memo(({ name }: Props) => {
             className="block p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
             aria-label={`View details for ${name}`}
         >
-            <div className="flex items-center justify-center h-28">
+            <div className="flex items-center justify-center h-28 bg-gray-100">
                 {sprite ? (
                     <img
                         src={sprite}
                         alt={`${name} sprite`}
-                        className="w-20 h-20 object-contain"
+                        className="w-30 h-30 object-contain"
                         loading="lazy"
-                        width="80"
-                        height="80"
                     />
                 ) : (
                     <div

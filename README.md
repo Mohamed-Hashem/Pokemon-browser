@@ -21,14 +21,20 @@ A modern, responsive web application for browsing Pokémon data with two viewing
 
 ## 🚀 Features
 
-- **Dual Viewing Modes**
-    - Pagination View: Browse Pokémon with traditional page navigation
-    - Load More View: Infinite scroll with "Load More" button
-- **Detailed Pokémon Information**: Click any Pokémon to view detailed stats
+- **Single Page Application**: All functionality on one page with toggle buttons
+    - Page Controls (Default): Traditional numbered pagination with instant page switching
+    - Infinite Scroll: Load more Pokémon dynamically with a button click
+- **Dual Viewing Modes with Toggle**
+    - Pagination View: Browse Pokémon with numbered page navigation (1-66)
+    - Infinite Scroll View: Seamlessly load more Pokémon without page refreshes
+- **Detailed Pokémon Information**: Click any Pokémon card to view detailed stats
 - **Responsive Design**: Works seamlessly on desktop, tablet, and mobile
+- **Sticky Header**: Toggle buttons stay visible while scrolling
+- **Back Navigation**: Detail page includes back button to return to main view
 - **Error Handling**: Graceful error boundaries and retry mechanisms
 - **Performance Optimized**: Suspense boundaries and efficient data fetching
 - **Type Safety**: Full TypeScript implementation
+- **Modern UI**: Clean design with smooth transitions and hover effects
 
 ## 🛠️ Tech Stack
 
@@ -80,6 +86,7 @@ src/
 ├── constants/             # Application constants
 │   └── index.ts          # Centralized constants (API, cache, pagination)
 ├── pages/                 # Page components
+│   ├── Home/              # Landing page with navigation options
 │   ├── PokemonDetail/     # Detailed Pokémon view
 │   ├── PokemonListLoadMore/# Infinite scroll view
 │   └── PokemonListPagination/# Paginated list view

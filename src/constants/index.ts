@@ -32,3 +32,29 @@ export const QUERY_CONFIG = {
     REFETCH_ON_RECONNECT: "always" as const,
     REFETCH_INTERVAL: false as const,
 };
+
+/**
+ * Pokemon Detail Constants
+ */
+export const POKEMON_DETAIL = {
+    /** Maximum stat value used for progress bar calculations */
+    MAX_STAT_VALUE: 255,
+    /** Image container size in pixels */
+    IMAGE_SIZE: 256,
+};
+
+/**
+ * UI Constants
+ */
+export const UI = {
+    /** Number of digits to pad Pokemon ID */
+    ID_PADDING: 3,
+    /** Units for height conversion from hectometres */
+    HEIGHT_UNIT: "m",
+    /** Height division factor (hectometres to metres) */
+    HEIGHT_DIVISOR: 10,
+    /** Units for weight conversion from hectograms */
+    WEIGHT_UNIT: "kg",
+    /** Weight division factor (hectograms to kilograms) */
+    WEIGHT_DIVISOR: 10,
+};
