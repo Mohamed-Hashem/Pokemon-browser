@@ -2,8 +2,8 @@ import { Suspense, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { getPokemonList } from '../../api/pokemon'
 import PokemonCard from '../../components/PokemonCard'
-import Spinner from '../../components/Spinner'
 import PaginationControls from '../../components/PaginationControls'
+import { GridSkeleton } from '../../components/SkeletonLoader'
 import type { PokemonListResult } from '../../types'
 
 const PAGE_SIZE = 12
@@ -15,7 +15,7 @@ function PokemonGrid({ page }: { page: number }) {
         queryFn: () => getPokemonList(PAGE_SIZE, offset)
     })
 
-    if (!data) return <Spinner />
+    if (!data) return <GridSkeleton count={PAGE_SIZE} />
 
     return (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
@@ -41,7 +41,7 @@ export default function PokemonListPagination() {
         <div className="p-6">
             <h1 className="text-2xl font-semibold mb-4">Pagination View</h1>
 
-            <Suspense fallback={<Spinner />}>
+            <Suspense fallback={<GridSkeleton count={PAGE_SIZE} />}>
                 <PokemonGrid page={page} />
             </Suspense>
 

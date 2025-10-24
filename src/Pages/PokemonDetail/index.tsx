@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { getPokemonByName } from '../../api/pokemon'
-import Spinner from '../../components/Spinner'
+import { DetailSkeleton } from '../../components/SkeletonLoader'
 import type { PokemonType } from '../../types'
 
 export default function PokemonDetail() {
@@ -14,7 +14,7 @@ export default function PokemonDetail() {
         <div className="p-6">
             <Link to="/" className="text-blue-600 underline">← Back</Link>
 
-            <Suspense fallback={<Spinner />}>
+            <Suspense fallback={<DetailSkeleton />}>
                 <DetailInner name={name} />
             </Suspense>
         </div>
@@ -27,7 +27,7 @@ function DetailInner({ name }: { name: string }) {
         queryFn: () => getPokemonByName(name)
     })
 
-    if (!data) return <Spinner />
+    if (!data) return <DetailSkeleton />
 
     return (
         <div className="mt-4 max-w-xl bg-white p-6 rounded shadow">

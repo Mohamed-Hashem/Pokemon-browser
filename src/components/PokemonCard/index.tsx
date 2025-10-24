@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { getPokemonByName } from '../../api/pokemon'
 import { Link } from 'react-router-dom'
-import Spinner from '../Spinner'
+import { PokemonCardSkeleton } from '../SkeletonLoader'
 
 interface Props {
     name: string
@@ -14,7 +14,7 @@ function PokemonCardInner({ name }: Props) {
         queryFn: () => getPokemonByName(name)
     })
 
-    if (!data) return <Spinner />
+    if (!data) return <PokemonCardSkeleton />
 
     const sprite = data.sprites?.front_default
 
@@ -34,7 +34,7 @@ function PokemonCardInner({ name }: Props) {
 
 export default function PokemonCard({ name }: Props) {
     return (
-        <Suspense fallback={<div className="p-4 bg-white rounded-lg"><Spinner /></div>}>
+        <Suspense fallback={<PokemonCardSkeleton />}>
             <PokemonCardInner name={name} />
         </Suspense>
     )
