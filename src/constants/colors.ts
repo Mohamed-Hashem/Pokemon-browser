@@ -1,7 +1,3 @@
-/**
- * Pokemon Type Colors
- * Colors for each Pokemon type used throughout the application
- */
 export const POKEMON_TYPE_COLORS: Record<string, string> = {
     fire: "#F08030",
     water: "#6890F0",
@@ -23,21 +19,11 @@ export const POKEMON_TYPE_COLORS: Record<string, string> = {
     steel: "#B8B8D0",
 };
 
-/**
- * Get the color for a specific Pokemon type
- * @param type - The Pokemon type name
- * @returns The hex color code for the type
- */
 export const getTypeColor = (type: string): string => {
     return POKEMON_TYPE_COLORS[type.toLowerCase()] || POKEMON_TYPE_COLORS.normal;
 };
 
-/**
- * Gradient Colors for UI
- */
 export const GRADIENT_COLORS = {
-    /** Background gradient for main page */
     BACKGROUND: "linear-gradient(135deg, #e0e7ff 0%, #e9d5ff 50%, #fce7f3 100%)",
-    /** Default gradient for Pokemon detail header */
     DEFAULT_HEADER: "linear-gradient(135deg, #A8A878 0%, #ff6b9d 100%)",
 };

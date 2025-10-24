@@ -10,15 +10,15 @@ export default function AbilitiesList({ abilities }: AbilitiesListProps) {
 
     return (
         <div className="mt-6">
-            <h2 className="text-2xl font-bold mb-3">Abilities</h2>
-            <div className="space-y-2">
+            <h2 className="text-3xl font-bold mb-4">Abilities</h2>
+            <div className="space-y-3">
                 {abilities.map((ability) => (
-                    <div key={ability.ability.name} className="flex items-center gap-2">
-                        <span className="font-medium capitalize">
-                            {ability.ability.name.replace("-", " ")}
+                    <div key={ability.ability.name} className="p-2 bg-gray-100 rounded-full w-fit">
+                        <span className="p-2 py-2 text-sm rounded-full font-normal text-gray-800 hover:bg-white transition-colors ">
+                            {ability.ability.name.replace(/-/g, " ")}
                         </span>
                         {ability.is_hidden && (
-                            <span className="text-xs text-gray-500">(Hidden)</span>
+                            <span className="text-sm text-gray-400 ml-2">(Hidden)</span>
                         )}
                     </div>
                 ))}

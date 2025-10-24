@@ -1,5 +1,3 @@
-import { POKEMON_DETAIL } from "../../constants";
-
 interface PokemonImageProps {
     name: string;
     imageUrl?: string;
@@ -7,13 +5,7 @@ interface PokemonImageProps {
 
 export default function PokemonImage({ name, imageUrl }: PokemonImageProps) {
     return (
-        <div
-            className="flex items-center justify-center bg-gray-100 rounded-full mb-4"
-            style={{
-                width: `${POKEMON_DETAIL.IMAGE_SIZE}px`,
-                height: `${POKEMON_DETAIL.IMAGE_SIZE}px`,
-            }}
-        >
+        <div className="flex items-center justify-center bg-gray-100 rounded-full mb-4 w-50 h-50">
             {imageUrl ? (
                 <img
                     src={imageUrl}

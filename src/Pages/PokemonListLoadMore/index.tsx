@@ -26,11 +26,14 @@ function InfiniteGrid() {
     return (
         <div>
             <PokemonGrid pokemon={all} />
-            <div className="flex justify-center mt-6">
+
+            <div className="flex flex-col items-center gap-4 mt-6">
+                <div className="text-gray-500 text-base">Showing {all.length} Pokemon</div>
                 <LoadMoreButton
                     onLoadMore={fetchNextPage}
                     hasMore={!!hasNextPage}
                     isLoading={isFetchingNextPage}
+                    pokemonCount={all.length}
                 />
             </div>
         </div>

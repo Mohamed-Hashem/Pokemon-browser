@@ -1,5 +1,3 @@
-import { POKEMON_DETAIL } from "../../constants";
-
 interface StatProgressBarProps {
     name: string;
     value: number;
@@ -13,7 +11,7 @@ export default function StatProgressBar({ name, value }: StatProgressBarProps) {
         .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(" ");
 
-    const percentage = Math.min((value / POKEMON_DETAIL.MAX_STAT_VALUE) * 100, 100);
+    const percentage = Math.min((value / 255) * 100, 100);
 
     return (
         <div>

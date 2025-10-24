@@ -52,6 +52,7 @@ function InfiniteScrollView() {
                     onLoadMore={fetchNextPage}
                     hasMore={!!hasNextPage}
                     isLoading={isFetchingNextPage}
+                    pokemonCount={all.length}
                 />
             </div>
         </div>
