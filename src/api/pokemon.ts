@@ -4,7 +4,7 @@ const API_BASE_URL = "https://pokeapi.co/api/v2";
 
 const api = axios.create({
     baseURL: API_BASE_URL,
-    timeout: 10000, // 10 second timeout
+    timeout: 10000,
 });
 
 export const getPokemonList = async (limit = 12, offset = 0) => {
