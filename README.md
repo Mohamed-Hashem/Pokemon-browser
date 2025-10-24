@@ -75,8 +75,11 @@ src/
 │   ├── ErrorBoundary/     # Error boundary wrapper
 │   ├── PaginationControls/# Pagination navigation
 │   ├── PokemonCard/       # Individual Pokémon card
+│   ├── SkeletonLoader/    # Loading skeleton components
 │   └── Spinner/           # Loading spinner
-├── Pages/                 # Page components
+├── constants/             # Application constants
+│   └── index.ts          # Centralized constants (API, cache, pagination)
+├── pages/                 # Page components
 │   ├── PokemonDetail/     # Detailed Pokémon view
 │   ├── PokemonListLoadMore/# Infinite scroll view
 │   └── PokemonListPagination/# Paginated list view
@@ -170,10 +173,10 @@ useQuery({
 
 ### 4. **Case Sensitivity in Imports**
 
-**Problem**: Imports used `./pages/` but the folder is named `Pages/`.
-**Solution**: Standardized to use `Pages` with capital P to match the actual folder name.
+**Problem**: Folder names had inconsistent casing.
+**Solution**: Standardized all folder names to lowercase (`pages`, `constants`) for consistency and to avoid case-sensitivity issues across different operating systems.
 
-**Why it occurred**: Windows file systems are case-insensitive, so the code may work locally but fail on case-sensitive systems (Linux, macOS with case-sensitive file systems) or in build processes.
+**Why it occurred**: Windows file systems are case-insensitive, so the code may work locally but fail on case-sensitive systems (Linux, macOS with case-sensitive file systems) or in build processes. Using lowercase for folders is a common convention.
 
 ### 5. **Optional Chaining Issues**
 
@@ -203,6 +206,54 @@ The application uses Tailwind CSS for styling with:
 -   Hover effects and transitions
 -   Consistent spacing and typography
 -   Shadow and rounded corners for cards
+
+## ⚙️ Constants Configuration
+
+All application constants are centralized in `src/constants/index.ts` for easy maintenance and consistency:
+
+### API Configuration
+
+```typescript
+API_BASE_URL: "https://pokeapi.co/api/v2"; // PokéAPI base URL
+API_TIMEOUT: 10000; // 10 second timeout
+```
+
+### Pagination Constants
+
+```typescript
+PAGE_SIZE: 20; // Items per page
+MIN_LIMIT: 1; // Minimum items per request
+MAX_LIMIT: 100; // Maximum items per request
+```
+
+### Cache Time Constants
+
+```typescript
+CACHE_TIME: {
+  STALE_TIME: 1000 * 60 * 5,               // 5 minutes stale time
+  GC_TIME: 1000 * 60 * 10,                 // 10 minutes garbage collection
+  POKEMON_DETAIL_STALE_TIME: 1000 * 60 * 30 // 30 minutes for details
+}
+```
+
+### Query Configuration
+
+```typescript
+QUERY_CONFIG: {
+  RETRY: 1,                                // Retry failed requests once
+  REFETCH_ON_WINDOW_FOCUS: false,          // Don't refetch on focus
+  REFETCH_ON_RECONNECT: "always",          // Refetch on reconnect
+  REFETCH_INTERVAL: false                  // No auto-refetch interval
+}
+```
+
+**Benefits of Centralized Constants:**
+
+-   Single source of truth for configuration values
+-   Easy to update across the entire application
+-   Prevents magic numbers in code
+-   Improves maintainability and testability
+-   TypeScript type safety for all constants
 
 ## 📱 Responsive Design
 

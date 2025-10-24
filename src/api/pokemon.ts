@@ -1,14 +1,19 @@
 import axios from "axios";
-
-const API_BASE_URL = "https://pokeapi.co/api/v2";
+import {
+    API_BASE_URL,
+    API_TIMEOUT,
+    PAGE_SIZE,
+    MIN_LIMIT,
+    MAX_LIMIT,
+} from "../constants";
 
 const api = axios.create({
     baseURL: API_BASE_URL,
-    timeout: 10000,
+    timeout: API_TIMEOUT,
 });
 
-export const getPokemonList = async (limit = 12, offset = 0) => {
-    const validLimit = Math.min(Math.max(1, limit), 100);
+export const getPokemonList = async (limit = PAGE_SIZE, offset = 0) => {
+    const validLimit = Math.min(Math.max(MIN_LIMIT, limit), MAX_LIMIT);
     const validOffset = Math.max(0, offset);
 
     const { data } = await api.get("/pokemon", {

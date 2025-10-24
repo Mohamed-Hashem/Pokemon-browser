@@ -2,9 +2,9 @@ import { Suspense, lazy } from 'react'
 import { Routes, Route, NavLink } from 'react-router-dom'
 import { GridSkeleton } from './components/SkeletonLoader'
 
-const PokemonListPagination = lazy(() => import('./Pages/PokemonListPagination'))
-const PokemonListLoadMore = lazy(() => import('./Pages/PokemonListLoadMore'))
-const PokemonDetail = lazy(() => import('./Pages/PokemonDetail'))
+const PokemonListPagination = lazy(() => import('./pages/PokemonListPagination'))
+const PokemonListLoadMore = lazy(() => import('./pages/PokemonListLoadMore'))
+const PokemonDetail = lazy(() => import('./pages/PokemonDetail'))
 
 export default function App() {
   return (

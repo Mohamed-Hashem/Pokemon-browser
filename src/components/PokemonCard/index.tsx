@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getPokemonByName } from '../../api/pokemon'
 import { Link } from 'react-router-dom'
 import { PokemonCardSkeleton } from '../SkeletonLoader'
+import { CACHE_TIME } from '../../constants'
 
 interface Props {
     name: string
@@ -12,7 +13,7 @@ const PokemonCardInner = memo(({ name }: Props) => {
     const { data } = useQuery({
         queryKey: ['pokemon-detail', name],
         queryFn: () => getPokemonByName(name),
-        staleTime: 1000 * 60 * 30, // Pokemon data rarely changes - 30 min cache
+        staleTime: CACHE_TIME.POKEMON_DETAIL_STALE_TIME, // Pokemon data rarely changes - 30 min cache
     })
 
     if (!data) return <PokemonCardSkeleton />

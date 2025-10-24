@@ -5,8 +5,7 @@ import PokemonCard from '../../components/PokemonCard'
 import PaginationControls from '../../components/PaginationControls'
 import { GridSkeleton } from '../../components/SkeletonLoader'
 import type { PokemonListResult } from '../../types'
-
-const PAGE_SIZE = 12
+import { PAGE_SIZE } from '../../constants'
 
 function PokemonGrid({ page }: { page: number }) {
     const offset = (page - 1) * PAGE_SIZE
@@ -35,7 +34,7 @@ export default function PokemonListPagination() {
         queryFn: () => getPokemonList(PAGE_SIZE, offset)
     })
 
-    const hasNext = Boolean(data?.next)
+    const totalPages = data?.count ? Math.ceil(data.count / PAGE_SIZE) : 99
 
     return (
         <div className="p-6">
@@ -45,7 +44,7 @@ export default function PokemonListPagination() {
                 <PokemonGrid page={page} />
             </Suspense>
 
-            <PaginationControls page={page} setPage={setPage} hasNext={hasNext} />
+            <PaginationControls page={page} setPage={setPage} totalPages={totalPages} />
         </div>
     )
 }
