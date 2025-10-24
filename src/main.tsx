@@ -6,13 +6,14 @@ import { queryClient } from './api/queryClient'
 import App from './App'
 import ErrorBoundary from './components/ErrorBoundary'
 import './index.css'
+import Spinner from './components/Spinner'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <Suspense fallback={<div className="p-8 text-center">Loading app...</div>}>
+          <Suspense fallback={<Spinner />}>
             <App />
           </Suspense>
         </BrowserRouter>
