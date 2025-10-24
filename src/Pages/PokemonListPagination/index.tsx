@@ -39,7 +39,7 @@ export default function PokemonListPagination() {
 
     return (
         <div className="p-6">
-            <h1 className="text-2xl font-semibold mb-4">Pagination View</h1>
+            <h1 className="text-2xl font-semibold mb-4" id="page-title">Pagination View</h1>
 
             <Suspense fallback={<GridSkeleton count={PAGE_SIZE} />}>
                 <PokemonGrid page={page} />

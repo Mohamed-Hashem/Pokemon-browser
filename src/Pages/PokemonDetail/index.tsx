@@ -8,11 +8,17 @@ import type { PokemonType } from '../../types'
 export default function PokemonDetail() {
     const { name } = useParams<{ name: string }>()
 
-    if (!name) return <div className="p-6">Missing Pokémon name</div>
+    if (!name) return <div className="p-6" role="alert">Missing Pokémon name</div>
 
     return (
         <div className="p-6">
-            <Link to="/" className="text-blue-600 underline">← Back</Link>
+            <Link
+                to="/"
+                className="inline-flex items-center text-blue-600 hover:text-blue-800 focus:outline-none focus:underline"
+                aria-label="Go back to Pokémon list"
+            >
+                ← Back
+            </Link>
 
             <Suspense fallback={<DetailSkeleton />}>
                 <DetailInner name={name} />
@@ -30,32 +36,56 @@ function DetailInner({ name }: { name: string }) {
     if (!data) return <DetailSkeleton />
 
     return (
-        <div className="mt-4 max-w-xl bg-white p-6 rounded shadow">
+        <article className="mt-4 max-w-xl bg-white p-6 rounded shadow">
             <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="w-48 h-48 flex items-center justify-center bg-gray-100 rounded">
                     {data.sprites?.front_default ? (
-                        <img src={data.sprites.front_default} alt={data.name} />
+                        <img
+                            src={data.sprites.front_default}
+                            alt={`${data.name} sprite`}
+                            className="w-full h-full object-contain"
+                            loading="eager"
+                        />
                     ) : (
-                        <div className="text-sm text-gray-500">No image</div>
+                        <div className="text-sm text-gray-500" role="img" aria-label="No image available">
+                            No image
+                        </div>
                     )}
                 </div>
 
                 <div>
-                    <h2 className="text-2xl font-bold capitalize">{data.name}</h2>
-                    <p className="mt-2">ID: {data.id}</p>
-                    <p className="mt-1">Height: {data.height}</p>
-                    <p className="mt-1">Weight: {data.weight}</p>
+                    <h2 className="text-2xl font-bold capitalize" id="pokemon-name">{data.name}</h2>
+                    <dl className="mt-2 space-y-1">
+                        <div>
+                            <dt className="inline font-medium">ID: </dt>
+                            <dd className="inline">{data.id}</dd>
+                        </div>
+                        <div>
+                            <dt className="inline font-medium">Height: </dt>
+                            <dd className="inline">{data.height}</dd>
+                        </div>
+                        <div>
+                            <dt className="inline font-medium">Weight: </dt>
+                            <dd className="inline">{data.weight}</dd>
+                        </div>
+                    </dl>
 
-                    <div className="mt-3">
-                        <h4 className="font-semibold">Types</h4>
-                        <div className="flex gap-2 mt-2">
+                    <div className="mt-4">
+                        <h3 className="font-semibold mb-2">Types</h3>
+                        <div className="flex gap-2" role="list">
                             {data.types.map((t: PokemonType) => (
-                                <span key={t.slot} className="px-2 py-1 bg-gray-100 rounded text-sm capitalize">{t.type.name}</span>
+                                <span
+                                    key={t.slot}
+                                    className="px-3 py-1 bg-gray-100 rounded text-sm capitalize"
+                                    role="listitem"
+                                >
+                                    {t.type.name}
+                                </span>
                             ))}
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </article>
     )
 }

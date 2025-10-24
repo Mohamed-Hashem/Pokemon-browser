@@ -92,6 +92,20 @@ src/
 -   `npm run build` - Build for production
 -   `npm run preview` - Preview production build
 -   `npm run lint` - Run ESLint
+-   `npm run type-check` - Type check without emitting files
+
+### Additional Scripts (Can be added)
+
+```json
+{
+    "scripts": {
+        "test": "vitest",
+        "test:ui": "vitest --ui",
+        "test:coverage": "vitest --coverage",
+        "analyze": "vite build --mode analyze"
+    }
+}
+```
 
 ## 🎯 Key Features Explained
 
@@ -197,13 +211,146 @@ The application uses Tailwind CSS for styling with:
 -   **Medium Tablet**: 4 columns grid
 -   **Desktop**: 6 columns grid
 
+### Responsive Breakpoints
+
+```tsx
+// Tailwind CSS breakpoints
+sm: '640px'   // Small tablets
+md: '768px'   // Tablets
+lg: '1024px'  // Desktops
+xl: '1280px'  // Large desktops
+
+// Grid classes
+grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6
+```
+
+## 🎯 Best Practices Implemented
+
+### ✅ Performance
+
+-   [x] Lazy loading routes
+-   [x] Component memoization
+-   [x] Image lazy loading
+-   [x] Optimized cache strategy
+-   [x] Request timeout protection
+-   [x] Skeleton loaders instead of spinners
+
+### ✅ Accessibility
+
+-   [x] Semantic HTML elements
+-   [x] ARIA labels and roles
+-   [x] Keyboard navigation
+-   [x] Focus indicators
+-   [x] Screen reader support
+-   [x] Skip links
+-   [x] Alt text for images
+
+### ✅ Security
+
+-   [x] Input validation
+-   [x] Request timeouts
+-   [x] Error handling
+-   [x] Safe error messages
+-   [x] HTTPS only
+-   [x] Sanitized inputs
+
+### ✅ Code Quality
+
+-   [x] TypeScript for type safety
+-   [x] Component modularity
+-   [x] Shared components (DRY)
+-   [x] Consistent code style
+-   [x] Error boundaries
+-   [x] Loading states
+
 ## 🚀 Performance Optimizations
 
 -   **Code Splitting**: React.lazy and Suspense for route-based splitting
 -   **Data Caching**: React Query caches API responses automatically
 -   **Suspense Boundaries**: Prevent waterfall loading patterns
 -   **Optimistic Updates**: Immediate UI feedback
--   **Retry Strategy**: Limited retries (1) to avoid excessive API calls
+-   **Retry Strategy**: Limited retries (2) to avoid excessive API calls
+-   **Component Memoization**: React.memo to prevent unnecessary re-renders
+-   **Image Lazy Loading**: Native lazy loading for images
+-   **Stale-While-Revalidate**: 5-minute stale time, 10-minute cache time
+-   **Request Timeout**: 10-second timeout to prevent hanging requests
+
+### Performance Configuration
+
+```tsx
+// Query Client Settings
+{
+  staleTime: 1000 * 60 * 5,     // 5 minutes
+  gcTime: 1000 * 60 * 10,        // 10 minutes
+  retry: 2,                       // Retry failed requests twice
+  refetchOnWindowFocus: false,    // Don't refetch on window focus
+}
+
+// Component Memoization
+const PokemonCardInner = memo(({ name }) => { ... })
+```
+
+## 🔐 Security Improvements
+
+-   **Input Validation**: Sanitize and validate all user inputs
+-   **Request Timeout**: Prevent hanging requests with 10s timeout
+-   **Error Sanitization**: Safe error messages without exposing internals
+-   **XSS Prevention**: Proper escaping and sanitization
+-   **Rate Limiting**: Client-side request throttling
+-   **HTTPS Only**: All API calls use secure HTTPS protocol
+
+### Security Measures
+
+```tsx
+// Input Sanitization
+const sanitizedName = encodeURIComponent(name.toLowerCase().trim());
+
+// Timeout Protection
+timeout: 10000; // 10 second timeout
+
+// Error Handling
+api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        // Safe error messages
+        throw new Error("Something went wrong. Please try again.");
+    }
+);
+```
+
+## ♿ Accessibility Features
+
+-   **Semantic HTML**: Proper use of `<nav>`, `<main>`, `<article>`, `<header>` elements
+-   **ARIA Labels**: Comprehensive aria-label attributes
+-   **Keyboard Navigation**: Full keyboard support with visible focus states
+-   **Skip Links**: "Skip to main content" for screen reader users
+-   **Screen Reader Support**: aria-live regions for dynamic content
+-   **Focus Management**: Proper focus indicators and outlines
+-   **Alt Text**: Descriptive alt text for all images
+-   **Color Contrast**: WCAG AA compliant color combinations
+-   **Semantic Lists**: Using `<dl>`, `<dt>`, `<dd>` for data
+
+### Accessibility Implementation
+
+```tsx
+// Skip Link
+<a href="#main-content" className="sr-only focus:not-sr-only">
+  Skip to main content
+</a>
+
+// ARIA Labels
+<button aria-label="Go to next page" aria-disabled={!hasNext}>
+  Next
+</button>
+
+// Live Regions
+<span aria-live="polite" aria-current="page">
+  Page {page}
+</span>
+
+// Focus Indicators
+className="focus:outline-none focus:ring-2 focus:ring-blue-500"
+```
 
 ## 📝 React Query Configuration
 
@@ -211,13 +358,23 @@ The application uses Tailwind CSS for styling with:
 export const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            suspense: true, // Enable Suspense mode
-            retry: 1, // Retry failed requests once
+            retry: 2, // Retry failed requests twice
             refetchOnWindowFocus: false, // Don't refetch on window focus
+            staleTime: 1000 * 60 * 5, // 5 minutes stale time
+            gcTime: 1000 * 60 * 10, // 10 minutes garbage collection
+            refetchOnReconnect: "always", // Refetch on reconnect
+            refetchInterval: false, // No automatic polling
         },
     },
 });
 ```
+
+### Query Configuration Benefits
+
+-   **Reduced Network Calls**: 5-minute stale time prevents unnecessary fetches
+-   **Better UX**: Data stays cached for 10 minutes
+-   **Auto-Retry**: Automatic retry on transient failures
+-   **Reconnect Handling**: Auto-refetch on network reconnection
 
 ## 🌐 API Integration
 
@@ -228,6 +385,39 @@ The application uses the [PokéAPI](https://pokeapi.co/) which provides:
 -   Sprites and images
 -   Type information
 -   Stats and characteristics
+
+### API Security & Error Handling
+
+```tsx
+// Timeout Protection
+const api = axios.create({
+    baseURL: "https://pokeapi.co/api/v2",
+    timeout: 10000, // 10 second timeout
+});
+
+// Error Interceptor
+api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response?.status === 404) {
+            throw new Error("Pokémon not found");
+        }
+        if (error.code === "ECONNABORTED") {
+            throw new Error("Request timeout - please try again");
+        }
+        throw new Error("Something went wrong. Please try again.");
+    }
+);
+
+// Input Validation
+export const getPokemonByName = async (name: string) => {
+    if (!name || typeof name !== "string") {
+        throw new Error("Invalid Pokémon name");
+    }
+    const sanitizedName = encodeURIComponent(name.toLowerCase().trim());
+    // ... fetch data
+};
+```
 
 ## 📄 License
 
@@ -243,6 +433,70 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 -   [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS framework
 -   [TanStack Query](https://tanstack.com/query) for the excellent data fetching library
 -   [Vite](https://vitejs.dev/) for the blazing fast build tool
+
+## 📊 Performance Metrics
+
+### Lighthouse Scores (Target)
+
+-   **Performance**: 95+
+-   **Accessibility**: 100
+-   **Best Practices**: 95+
+-   **SEO**: 100
+
+### Key Metrics
+
+-   **First Contentful Paint (FCP)**: < 1.5s
+-   **Largest Contentful Paint (LCP)**: < 2.5s
+-   **Time to Interactive (TTI)**: < 3.5s
+-   **Cumulative Layout Shift (CLS)**: < 0.1
+
+## 🔍 Browser Support
+
+-   Chrome (latest)
+-   Firefox (latest)
+-   Safari (latest)
+-   Edge (latest)
+-   Mobile browsers (iOS Safari, Chrome Mobile)
+
+## 📝 Development Guidelines
+
+### Component Structure
+
+```
+ComponentName/
+  ├── index.tsx          # Main component
+  ├── ComponentName.test.tsx  # Tests
+  └── types.ts           # Component-specific types (if needed)
+```
+
+### Naming Conventions
+
+-   **Components**: PascalCase (e.g., `PokemonCard`)
+-   **Files**: PascalCase for components, camelCase for utilities
+-   **Functions**: camelCase (e.g., `getPokemonList`)
+-   **Types/Interfaces**: PascalCase (e.g., `PokemonDetail`)
+
+### Code Style
+
+-   Use TypeScript for all new code
+-   Follow ESLint rules
+-   Add ARIA labels for accessibility
+-   Memoize expensive components
+-   Use semantic HTML elements
+-   Add proper error handling
+
+## 🚀 Future Enhancements
+
+-   [ ] Add unit tests with Vitest
+-   [ ] Implement E2E tests with Playwright
+-   [ ] Add search functionality
+-   [ ] Implement favorites/bookmarks
+-   [ ] Add filters by type
+-   [ ] Dark mode support
+-   [ ] PWA capabilities (offline support)
+-   [ ] Animation improvements
+-   [ ] Performance monitoring dashboard
+-   [ ] i18n (internationalization) support
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 

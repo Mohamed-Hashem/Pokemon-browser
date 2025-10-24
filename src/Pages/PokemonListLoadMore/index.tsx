@@ -35,12 +35,13 @@ function InfiniteGrid() {
                     <button
                         onClick={() => fetchNextPage()}
                         disabled={isFetchingNextPage}
-                        className="px-4 py-2 bg-blue-600 text-white rounded cursor-pointer disabled:opacity-50"
+                        className="px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+                        aria-label={isFetchingNextPage ? 'Loading more Pokémon' : 'Load more Pokémon'}
                     >
                         {isFetchingNextPage ? 'Loading...' : 'Load More'}
                     </button>
                 ) : (
-                    <div className="text-sm text-gray-500">No more Pokémon</div>
+                    <div className="text-sm text-gray-500" role="status">No more Pokémon</div>
                 )}
             </div>
         </div>
@@ -50,7 +51,7 @@ function InfiniteGrid() {
 export default function PokemonListLoadMore() {
     return (
         <div className="p-6">
-            <h1 className="text-2xl font-semibold mb-4">Load More View</h1>
+            <h1 className="text-2xl font-semibold mb-4" id="page-title">Load More View</h1>
             <Suspense fallback={<GridSkeleton count={PAGE_SIZE} />}>
                 <InfiniteGrid />
             </Suspense>
