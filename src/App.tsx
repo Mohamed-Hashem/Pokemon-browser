@@ -1,6 +1,6 @@
 import { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
-import { GridSkeleton } from "./components/SkeletonLoader";
+import Spinner from "./components/Spinner";
 
 const Home = lazy(() => import("./pages/Home"));
 const PokemonDetail = lazy(() => import("./pages/PokemonDetail"));
@@ -8,14 +8,7 @@ const PokemonDetail = lazy(() => import("./pages/PokemonDetail"));
 export default function App() {
     return (
         <div className="min-h-screen bg-gray-50">
-            <Suspense
-                fallback={
-                    <div className="text-center p-6" role="status" aria-live="polite">
-                        <GridSkeleton count={12} />
-                        <span className="sr-only">Loading Pokémon...</span>
-                    </div>
-                }
-            >
+            <Suspense fallback={<Spinner />}>
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/pokemon/:name" element={<PokemonDetail />} />

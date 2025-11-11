@@ -7,7 +7,7 @@ export default function Spinner() {
         >
             <div className="flex flex-col items-center gap-3">
                 <svg
-                    className="w-12 h-12 text-blue-600 animate-spin"
+                    className="w-25 h-25 text-blue-600 animate-spin"
                     viewBox="0 0 24 24"
                     aria-hidden="true"
                 >

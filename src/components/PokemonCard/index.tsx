@@ -36,7 +36,7 @@ const PokemonCardInner = memo(({ name }: Props) => {
                     />
                 ) : (
                     <div
-                        className="text-sm text-gray-500"
+                        className="text-sm text-gray-500 font-bold"
                         role="img"
                         aria-label="No image available"
                     >

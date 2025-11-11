@@ -22,7 +22,7 @@ export default function InfiniteScrollView() {
 
     return (
         <div>
-            <PokemonGrid pokemon={all} />
+            <PokemonGrid pokemons={all} />
             <div className="flex justify-center mt-6">
                 <LoadMoreButton
                     onLoadMore={fetchNextPage}

@@ -23,7 +23,7 @@ export default function PaginationView({ page, setPage }: PaginationViewProps) {
 
     return (
         <div>
-            <PokemonGrid pokemon={data.results} />
+            <PokemonGrid pokemons={data.results} />
             <PaginationControls page={page} setPage={setPage} totalPages={totalPages} />
         </div>
     );
