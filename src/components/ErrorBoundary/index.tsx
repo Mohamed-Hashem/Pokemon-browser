@@ -17,7 +17,10 @@ class ErrorBoundary extends React.Component<Props, State> {
     }
 
     componentDidCatch(error: Error, info: React.ErrorInfo) {
-        console.error("Unhandled error caught by ErrorBoundary:", error, info);
+        if (import.meta.env.DEV) {
+            console.error("Unhandled error caught by ErrorBoundary:", error, info);
+        }
+        // In production: send to monitoring service (e.g., Sentry) instead
     }
 
     handleRetry = () => this.setState({ hasError: false, error: undefined });

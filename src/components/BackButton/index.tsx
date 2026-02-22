@@ -12,7 +12,13 @@ export default memo(function BackButton({ onClick, label = "Back" }: BackButtonP
             className="mb-4 cursor-pointer flex items-center gap-2 text-gray-700 hover:text-gray-900 transition-colors"
             aria-label="Go back"
         >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
                 <path
                     strokeLinecap="round"
                     strokeLinejoin="round"

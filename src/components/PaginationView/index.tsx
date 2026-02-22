@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getPokemonList } from "../../api/pokemon";
 import PokemonGrid from "../PokemonGrid";
@@ -13,6 +13,8 @@ interface PaginationViewProps {
 
 export default function PaginationView({ page, setPage }: PaginationViewProps) {
     const queryClient = useQueryClient();
+    const gridRef = useRef<HTMLDivElement>(null);
+    const isFirstLoad = useRef(true);
     const offset = (page - 1) * PAGE_SIZE;
     const { data } = useQuery({
         queryKey: ["pokemon-page", page],
@@ -30,6 +32,14 @@ export default function PaginationView({ page, setPage }: PaginationViewProps) {
         });
     }, [page, queryClient]);
 
+    useEffect(() => {
+        if (isFirstLoad.current) {
+            isFirstLoad.current = false;
+            return;
+        }
+        gridRef.current?.focus();
+    }, [page]);
+
     const totalPages = useMemo(
         () => (data?.count ? Math.ceil(data.count / PAGE_SIZE) : 99),
         [data?.count]
@@ -39,7 +49,12 @@ export default function PaginationView({ page, setPage }: PaginationViewProps) {
 
     return (
         <div>
-            <PokemonGrid pokemons={data.results} />
+            <div ref={gridRef} tabIndex={-1} className="outline-none">
+                <PokemonGrid pokemons={data.results} />
+            </div>
+            <div aria-live="polite" className="sr-only">
+                Showing page {page} of {totalPages}
+            </div>
             <PaginationControls page={page} setPage={setPage} totalPages={totalPages} />
         </div>
     );

@@ -4,7 +4,12 @@ interface PokemonCardSkeletonProps {
 
 export function PokemonCardSkeleton() {
     return (
-        <div className="block p-4 bg-white rounded-lg shadow animate-pulse">
+        <div
+            className="block p-4 bg-white rounded-lg shadow animate-pulse"
+            role="status"
+            aria-label="Loading Pokémon card"
+        >
+            <span className="sr-only">Loading…</span>
             <div className="flex items-center justify-center h-28">
                 <div className="w-20 h-20 bg-gray-200 rounded"></div>
             </div>
@@ -17,7 +22,12 @@ export function PokemonCardSkeleton() {
 
 export function GridSkeleton({ count = 12 }: PokemonCardSkeletonProps) {
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+            role="status"
+            aria-label="Loading Pokémon grid"
+        >
+            <span className="sr-only">Loading…</span>
             {Array.from({ length: count }).map((_, i) => (
                 <PokemonCardSkeleton key={i} />
             ))}
@@ -27,7 +37,12 @@ export function GridSkeleton({ count = 12 }: PokemonCardSkeletonProps) {
 
 export function DetailSkeleton() {
     return (
-        <div className="mt-4 max-w-xl bg-white p-6 rounded shadow animate-pulse">
+        <div
+            className="mt-4 max-w-xl bg-white p-6 rounded shadow animate-pulse"
+            role="status"
+            aria-label="Loading Pokémon details"
+        >
+            <span className="sr-only">Loading…</span>
             <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="w-48 h-48 flex items-center justify-center bg-gray-100 rounded">
                     <div className="w-32 h-32 bg-gray-200 rounded"></div>

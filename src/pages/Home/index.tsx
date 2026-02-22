@@ -32,7 +32,11 @@ export default function Home() {
         <div className="min-h-screen" style={backgroundStyle}>
             <div className="max-w-6xl mx-auto px-4 py-8">
                 <PageHeader
-                    title="⚡ Pokédex"
+                    title={
+                        <>
+                            <span aria-hidden="true">⚡</span> Pokédex
+                        </>
+                    }
                     subtitle="Discover and explore Pokemon with page controls"
                 >
                     <ViewToggle currentView={viewMode} onViewChange={handleViewChange} />

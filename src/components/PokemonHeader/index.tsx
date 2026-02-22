@@ -1,5 +1,5 @@
 import { memo, useMemo } from "react";
-import { getTypeColor } from "../../constants/colors";
+import { getTypeColor, getTextColorForType } from "../../constants/colors";
 import { UI } from "../../constants";
 
 interface PokemonHeaderProps {
@@ -15,15 +15,18 @@ export default memo(function PokemonHeader({ name, id, primaryType }: PokemonHea
         }),
         [primaryType]
     );
+
+    const textColor = useMemo(() => getTextColorForType(primaryType), [primaryType]);
+
     return (
         <div className="text-center py-8 px-6" style={backgroundStyle}>
-            <h1 className="text-4xl font-bold text-white capitalize mb-2">
+            <h1 className="text-4xl font-bold capitalize mb-2" style={{ color: textColor }}>
                 <span role="img" aria-hidden="true">
                     ⚡
                 </span>{" "}
                 {name}
             </h1>
-            <p className="text-white text-lg opacity-90">
+            <p className="text-lg" style={{ color: textColor, opacity: 0.9 }}>
                 #{String(id).padStart(UI.ID_PADDING, "0")}
             </p>
         </div>

@@ -24,6 +24,7 @@ export const getPokemonByName = async (name: string) => {
         throw new Error("Invalid Pokémon name");
     }
 
-    const { data } = await api.get(`/pokemon/${name}`);
+    const sanitized = encodeURIComponent(name.trim().toLowerCase());
+    const { data } = await api.get(`/pokemon/${sanitized}`);
     return data;
 };
