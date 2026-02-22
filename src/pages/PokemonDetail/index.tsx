@@ -1,4 +1,4 @@
-import { Suspense, useCallback, useMemo } from "react";
+import { Suspense, useCallback, useMemo, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getPokemonByName } from "../../api/pokemon";
@@ -48,6 +48,15 @@ function DetailInner({ name }: { name: string }) {
         queryFn: () => getPokemonByName(name),
         staleTime: CACHE_TIME.POKEMON_DETAIL_STALE_TIME,
     });
+
+    useEffect(() => {
+        if (!data) return;
+        const formatted = data.name.charAt(0).toUpperCase() + data.name.slice(1);
+        document.title = `${formatted} | Pokédex`;
+        return () => {
+            document.title = "Pokédex - Browse Pokémon";
+        };
+    }, [data]);
 
     if (!data) return <DetailSkeleton />;
 

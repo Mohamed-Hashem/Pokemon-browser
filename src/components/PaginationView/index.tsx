@@ -18,7 +18,7 @@ export default function PaginationView({ page, setPage }: PaginationViewProps) {
     const offset = (page - 1) * PAGE_SIZE;
     const { data } = useQuery({
         queryKey: ["pokemon-page", page],
-        queryFn: () => getPokemonList(PAGE_SIZE, offset),
+        queryFn: ({ signal }) => getPokemonList(PAGE_SIZE, offset, signal),
         staleTime: CACHE_TIME.STALE_TIME,
     });
 
@@ -27,7 +27,7 @@ export default function PaginationView({ page, setPage }: PaginationViewProps) {
         const nextOffset = page * PAGE_SIZE;
         queryClient.prefetchQuery({
             queryKey: ["pokemon-page", page + 1],
-            queryFn: () => getPokemonList(PAGE_SIZE, nextOffset),
+            queryFn: ({ signal }) => getPokemonList(PAGE_SIZE, nextOffset, signal),
             staleTime: CACHE_TIME.STALE_TIME,
         });
     }, [page, queryClient]);

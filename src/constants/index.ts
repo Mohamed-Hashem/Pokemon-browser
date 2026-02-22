@@ -5,8 +5,8 @@ export const MIN_LIMIT = 1;
 export const MAX_LIMIT = 100;
 
 export const CACHE_TIME = {
-    /** General query stale time - 5 minutes */
-    STALE_TIME: 1000 * 60 * 5,
+    /** General query stale time - 30 minutes (Pokemon data rarely changes) */
+    STALE_TIME: 1000 * 60 * 30,
     /** Garbage collection time - 10 minutes */
     GC_TIME: 1000 * 60 * 10,
     /** Pokemon detail cache - 30 minutes (data rarely changes) */

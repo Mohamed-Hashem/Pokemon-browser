@@ -1,6 +1,6 @@
-import { Suspense, useState, useTransition, useCallback, useMemo } from "react";
+import { Suspense, useState, useTransition, useCallback, useMemo, lazy } from "react";
 import PaginationView from "../../components/PaginationView";
-import InfiniteScrollView from "../../components/InfiniteScrollView";
+const InfiniteScrollView = lazy(() => import("../../components/InfiniteScrollView"));
 import ViewToggle from "../../components/ViewToggle";
 import PageHeader from "../../components/PageHeader";
 import { GridSkeleton } from "../../components/SkeletonLoader";
@@ -10,7 +10,7 @@ import { GRADIENT_COLORS } from "../../constants/colors";
 export default function Home() {
     const [viewMode, setViewMode] = useState<"pagination" | "infinite">("pagination");
     const [page, setPage] = useState(1);
-    const [, startTransition] = useTransition();
+    const [isPending, startTransition] = useTransition();
 
     const handleViewChange = useCallback(
         (view: "pagination" | "infinite") => {
@@ -37,11 +37,16 @@ export default function Home() {
                             <span aria-hidden="true">⚡</span> Pokédex
                         </>
                     }
-                    subtitle="Discover and explore Pokemon with page controls"
+                    subtitle={
+                        viewMode === "pagination"
+                            ? "Discover and explore Pokémon with page controls"
+                            : "Discover and explore Pokémon with infinite scroll"
+                    }
                 >
                     <ViewToggle currentView={viewMode} onViewChange={handleViewChange} />
                 </PageHeader>
 
+                <div className={`transition-opacity duration-200 ${isPending ? "opacity-50 pointer-events-none" : "opacity-100"}`}>
                 <Suspense fallback={<GridSkeleton count={PAGE_SIZE} />}>
                     {viewMode === "pagination" ? (
                         <PaginationView page={page} setPage={handleSetPage} />
@@ -49,6 +54,7 @@ export default function Home() {
                         <InfiniteScrollView />
                     )}
                 </Suspense>
+                </div>
             </div>
         </div>
     );

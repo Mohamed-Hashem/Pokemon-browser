@@ -4,6 +4,7 @@ import Spinner from "./components/Spinner";
 
 const Home = lazy(() => import("./pages/Home"));
 const PokemonDetail = lazy(() => import("./pages/PokemonDetail"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 export default function App() {
     return (
@@ -19,6 +20,7 @@ export default function App() {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/pokemon/:name" element={<PokemonDetail />} />
+                        <Route path="*" element={<NotFound />} />
                     </Routes>
                 </Suspense>
             </main>

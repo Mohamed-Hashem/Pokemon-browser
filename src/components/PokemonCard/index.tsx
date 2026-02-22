@@ -12,7 +12,7 @@ interface Props {
 const PokemonCardInner = memo(({ name }: Props) => {
     const { data } = useQuery({
         queryKey: ["pokemon-detail", name],
-        queryFn: () => getPokemonByName(name),
+        queryFn: ({ signal }) => getPokemonByName(name, signal),
         staleTime: CACHE_TIME.POKEMON_DETAIL_STALE_TIME, // Pokemon data rarely changes - 30 min cache
     });
 
@@ -24,7 +24,7 @@ const PokemonCardInner = memo(({ name }: Props) => {
         <Link
             to={`/pokemon/${name}`}
             className="block p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
-            aria-label={`View details for ${name}`}
+            aria-label={`View details for ${name.charAt(0).toUpperCase() + name.slice(1)}`}
         >
             <div className="flex items-center justify-center h-28 bg-gray-100">
                 {sprite ? (

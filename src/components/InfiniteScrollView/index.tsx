@@ -30,7 +30,7 @@ const gridComponents = {
 export default function InfiniteScrollView() {
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
         queryKey: ["pokemon-infinite"],
-        queryFn: ({ pageParam = 0 }) => getPokemonList(PAGE_SIZE, pageParam),
+        queryFn: ({ pageParam = 0, signal }) => getPokemonList(PAGE_SIZE, pageParam as number, signal),
         getNextPageParam: (lastPage, pages) => {
             if (lastPage.next) return pages.length * PAGE_SIZE;
             return undefined;

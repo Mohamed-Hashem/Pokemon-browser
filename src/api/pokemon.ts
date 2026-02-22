@@ -6,7 +6,7 @@ const api = axios.create({
     timeout: API_TIMEOUT,
 });
 
-export const getPokemonList = async (limit = PAGE_SIZE, offset = 0) => {
+export const getPokemonList = async (limit = PAGE_SIZE, offset = 0, signal?: AbortSignal) => {
     const validLimit = Math.min(Math.max(MIN_LIMIT, limit), MAX_LIMIT);
     const validOffset = Math.max(0, offset);
 
@@ -15,16 +15,17 @@ export const getPokemonList = async (limit = PAGE_SIZE, offset = 0) => {
             limit: validLimit,
             offset: validOffset,
         },
+        signal,
     });
     return data;
 };
 
-export const getPokemonByName = async (name: string) => {
+export const getPokemonByName = async (name: string, signal?: AbortSignal) => {
     if (!name || typeof name !== "string") {
         throw new Error("Invalid Pokémon name");
     }
 
     const sanitized = encodeURIComponent(name.trim().toLowerCase());
-    const { data } = await api.get(`/pokemon/${sanitized}`);
+    const { data } = await api.get(`/pokemon/${sanitized}`, { signal });
     return data;
 };
