@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 interface LoadMoreButtonProps {
     onLoadMore: () => void;
     hasMore: boolean;
@@ -5,7 +7,7 @@ interface LoadMoreButtonProps {
     pokemonCount?: number;
 }
 
-export default function LoadMoreButton({
+export default memo(function LoadMoreButton({
     onLoadMore,
     hasMore,
     isLoading,
@@ -42,4 +44,4 @@ export default function LoadMoreButton({
             Load More
         </button>
     );
-}
+});

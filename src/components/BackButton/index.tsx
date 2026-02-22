@@ -1,9 +1,11 @@
+import { memo } from "react";
+
 interface BackButtonProps {
     onClick: () => void;
     label?: string;
 }
 
-export default function BackButton({ onClick, label = "Back" }: BackButtonProps) {
+export default memo(function BackButton({ onClick, label = "Back" }: BackButtonProps) {
     return (
         <button
             onClick={onClick}
@@ -21,4 +23,4 @@ export default function BackButton({ onClick, label = "Back" }: BackButtonProps)
             <span className="font-medium">{label}</span>
         </button>
     );
-}
+});

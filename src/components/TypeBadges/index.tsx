@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { getTypeColor } from "../../constants/colors";
 import type { PokemonType } from "../../types";
 
@@ -5,7 +6,7 @@ interface TypeBadgesProps {
     types: PokemonType[];
 }
 
-export default function TypeBadges({ types }: TypeBadgesProps) {
+export default memo(function TypeBadges({ types }: TypeBadgesProps) {
     return (
         <div className="flex gap-2 mb-4">
             {types.map((t) => (
@@ -21,4 +22,4 @@ export default function TypeBadges({ types }: TypeBadgesProps) {
             ))}
         </div>
     );
-}
+});

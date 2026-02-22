@@ -1,9 +1,10 @@
-import { Suspense } from "react";
+import { Suspense, useCallback, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getPokemonByName } from "../../api/pokemon";
 import { DetailSkeleton } from "../../components/SkeletonLoader";
 import { GRADIENT_COLORS } from "../../constants/colors";
+import { CACHE_TIME } from "../../constants";
 import BackButton from "../../components/BackButton";
 import PokemonHeader from "../../components/PokemonHeader";
 import PokemonImage from "../../components/PokemonImage";
@@ -17,6 +18,10 @@ export default function PokemonDetail() {
     const { name } = useParams<{ name: string }>();
     const navigate = useNavigate();
 
+    const goBack = useCallback(() => navigate(-1), [navigate]);
+
+    const backgroundStyle = useMemo(() => ({ background: GRADIENT_COLORS.BACKGROUND }), []);
+
     if (!name)
         return (
             <div className="p-6" role="alert">
@@ -25,9 +30,9 @@ export default function PokemonDetail() {
         );
 
     return (
-        <div className="min-h-screen" style={{ background: GRADIENT_COLORS.BACKGROUND }}>
+        <div className="min-h-screen" style={backgroundStyle}>
             <div className="max-w-4xl mx-auto py-8 px-4">
-                <BackButton onClick={() => navigate(-1)} />
+                <BackButton onClick={goBack} />
 
                 <Suspense fallback={<DetailSkeleton />}>
                     <DetailInner name={name} />
@@ -41,6 +46,7 @@ function DetailInner({ name }: { name: string }) {
     const { data } = useQuery({
         queryKey: ["pokemon-detail-page", name],
         queryFn: () => getPokemonByName(name),
+        staleTime: CACHE_TIME.POKEMON_DETAIL_STALE_TIME,
     });
 
     if (!data) return <DetailSkeleton />;

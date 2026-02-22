@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 interface AbilitiesListProps {
     abilities: Array<{
         ability: { name: string };
@@ -5,7 +7,7 @@ interface AbilitiesListProps {
     }>;
 }
 
-export default function AbilitiesList({ abilities }: AbilitiesListProps) {
+export default memo(function AbilitiesList({ abilities }: AbilitiesListProps) {
     if (!abilities || abilities.length === 0) return null;
 
     return (
@@ -25,4 +27,4 @@ export default function AbilitiesList({ abilities }: AbilitiesListProps) {
             </div>
         </div>
     );
-}
+});

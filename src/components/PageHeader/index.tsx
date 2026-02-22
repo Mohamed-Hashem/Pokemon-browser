@@ -1,10 +1,12 @@
+import { memo } from "react";
+
 interface PageHeaderProps {
     title: string;
     subtitle?: string;
     children?: React.ReactNode;
 }
 
-export default function PageHeader({ title, subtitle, children }: PageHeaderProps) {
+export default memo(function PageHeader({ title, subtitle, children }: PageHeaderProps) {
     return (
         <div className="text-center mb-8">
             <h1 className="text-5xl font-bold mb-3 text-gray-800">{title}</h1>
@@ -12,4 +14,4 @@ export default function PageHeader({ title, subtitle, children }: PageHeaderProp
             {children}
         </div>
     );
-}
+});

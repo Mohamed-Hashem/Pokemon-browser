@@ -1,11 +1,13 @@
+import { memo, useMemo, useCallback } from "react";
+
 interface Props {
     page: number;
     setPage: (page: number) => void;
     totalPages: number;
 }
 
-export default function PaginationControls({ page, setPage, totalPages }: Props) {
-    const getPageNumbers = () => {
+export default memo(function PaginationControls({ page, setPage, totalPages }: Props) {
+    const pageNumbers = useMemo(() => {
         const pages: (number | string)[] = [];
         const maxButtons = 5;
 
@@ -16,7 +18,6 @@ export default function PaginationControls({ page, setPage, totalPages }: Props)
             startPage = Math.max(1, endPage - maxButtons + 1);
         }
 
-        // Add first page and ellipsis if needed
         if (startPage > 1) {
             pages.push(1);
             if (startPage > 2) {
@@ -24,12 +25,10 @@ export default function PaginationControls({ page, setPage, totalPages }: Props)
             }
         }
 
-        // Add the visible page numbers
         for (let i = startPage; i <= endPage; i++) {
             pages.push(i);
         }
 
-        // Add ellipsis and last page if needed
         if (endPage < totalPages) {
             if (endPage < totalPages - 1) {
                 pages.push("...");
@@ -38,9 +37,10 @@ export default function PaginationControls({ page, setPage, totalPages }: Props)
         }
 
         return pages;
-    };
+    }, [page, totalPages]);
 
-    const pageNumbers = getPageNumbers();
+    const goToPrev = useCallback(() => setPage(Math.max(1, page - 1)), [setPage, page]);
+    const goToNext = useCallback(() => setPage(page + 1), [setPage, page]);
 
     return (
         <nav
@@ -49,7 +49,7 @@ export default function PaginationControls({ page, setPage, totalPages }: Props)
             role="navigation"
         >
             <button
-                onClick={() => setPage(Math.max(1, page - 1))}
+                onClick={goToPrev}
                 disabled={page === 1}
                 className="px-3 py-2 text-sm bg-white border border-gray-300 text-gray-700 rounded disabled:bg-gray-100 disabled:cursor-not-allowed disabled:text-gray-400 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 transition-colors cursor-pointer"
                 aria-label="Go to previous page"
@@ -91,7 +91,7 @@ export default function PaginationControls({ page, setPage, totalPages }: Props)
             })}
 
             <button
-                onClick={() => setPage(page + 1)}
+                onClick={goToNext}
                 disabled={page >= totalPages}
                 className="px-3 py-2 text-sm bg-white border border-gray-300 text-gray-700 rounded disabled:bg-gray-100 disabled:cursor-not-allowed disabled:text-gray-400 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 transition-colors cursor-pointer"
                 aria-label="Go to next page"
@@ -101,4 +101,4 @@ export default function PaginationControls({ page, setPage, totalPages }: Props)
             </button>
         </nav>
     );
-}
+});

@@ -1,9 +1,11 @@
+import { memo } from "react";
+
 interface PokemonImageProps {
     name: string;
     imageUrl?: string;
 }
 
-export default function PokemonImage({ name, imageUrl }: PokemonImageProps) {
+export default memo(function PokemonImage({ name, imageUrl }: PokemonImageProps) {
     return (
         <div className="flex items-center justify-center bg-gray-100 rounded-full mb-4 w-50 h-50">
             {imageUrl ? (
@@ -20,4 +22,4 @@ export default function PokemonImage({ name, imageUrl }: PokemonImageProps) {
             )}
         </div>
     );
-}
+});

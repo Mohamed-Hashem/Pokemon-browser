@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getPokemonList } from "../../api/pokemon";
 import PokemonGrid from "../PokemonGrid";
@@ -16,7 +17,7 @@ export default function InfiniteScrollView() {
         initialPageParam: 0,
     });
 
-    const all = data?.pages.flatMap((p) => p.results) || [];
+    const all = useMemo(() => data?.pages.flatMap((p) => p.results) || [], [data?.pages]);
 
     if (!data) return <GridSkeleton count={PAGE_SIZE} />;
 

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import StatProgressBar from "../StatProgressBar";
 
 interface BaseStatsProps {
@@ -7,7 +8,7 @@ interface BaseStatsProps {
     }>;
 }
 
-export default function BaseStats({ stats }: BaseStatsProps) {
+export default memo(function BaseStats({ stats }: BaseStatsProps) {
     return (
         <div>
             <h2 className="text-2xl font-bold mb-4">Base Stats</h2>
@@ -22,4 +23,4 @@ export default function BaseStats({ stats }: BaseStatsProps) {
             </div>
         </div>
     );
-}
+});
